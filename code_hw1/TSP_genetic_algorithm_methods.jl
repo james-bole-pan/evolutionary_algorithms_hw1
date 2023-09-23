@@ -46,10 +46,10 @@ function crossover(parent1, parent2)
     return offspring
 end
 
-function roulette_selection(population, selection_rate=0.5, mutation_rate=0.01)
+function roulette_selection(population, selection_rate=0.1)
     total_fitness = sum(fitness.(population))
     selected = []
-    # Select out 50% of the population using roulette wheel selection
+
     while length(selected) < length(population) * selection_rate
         accumulator = 0.0
         random_val = rand() * total_fitness
@@ -61,23 +61,28 @@ function roulette_selection(population, selection_rate=0.5, mutation_rate=0.01)
             end
         end
     end
+    return selected
+end
+
+function breed(selected, population_size, mutation_rate = 0.01)
     # Create a new generation by breeding the selected individuals
     new_population = copy(selected)
-    while length(new_population) < length(population)
+    while length(new_population) < population_size
         parent1, parent2 = rand(selected), rand(selected)
         child = crossover(parent1, parent2)
         push!(new_population, mutate(child, mutation_rate))
     end
-
+    sort!(new_population, by=fitness, rev=true) # rev=true means descending order
     return new_population
 end
 
 
-function genetic_algorithm(coordinates, generations, population_size = 1000, selection_rate=0.5, mutation_rate=0.01)
+function genetic_algorithm(coordinates, generations, population_size = 100, selection_rate=0.5, mutation_rate=0.01)
     population = [shuffle(coordinates) for _ in 1:length(coordinates)] # initialize the population
     fitness_history = []
     for _ in 1:generations
-        population = roulette_selection(population, selection_rate, mutation_rate)
+        selected = roulette_selection(population, selection_rate)
+        population = breed(selected, population_size, mutation_rate)
         push!(fitness_history, fitness(population[1]))
     end
     return population[1], fitness_history
