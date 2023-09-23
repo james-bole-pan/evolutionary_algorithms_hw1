@@ -17,19 +17,20 @@ function mutate(route, mutation_rate=0.01)
     for i in 1:length(route)
         if rand() < mutation_rate
             j = rand(1:length(route))
-            route[i], route[j] = route[j], route[i]
+            city1, city2 = route[i], route[j]
+            route[i], route[j] = city2, city1
         end
     end
     return route
 end
 
 # we use ordered crossover to create a child from two parents
-function crossover(parent1::Vector{Int}, parent2::Vector{Int})
+function crossover(parent1, parent2)
     
     idx1, idx2 = sort(rand(1:length(parent1), 2))
     subset_parent1 = parent1[idx1:idx2]
 
-    offspring = Vector{Int}(undef, length(parent1))
+    offspring = [(-1.0,-1.0) for _ in 1:length(parent1)]
     offspring[idx1:idx2] = subset_parent1
 
     j = 1
@@ -45,7 +46,7 @@ function crossover(parent1::Vector{Int}, parent2::Vector{Int})
     return offspring
 end
 
-function selection(population, selection_rate=0.5, mutation_rate=0.01)
+function roulette_selection(population, selection_rate=0.5, mutation_rate=0.01)
     total_fitness = sum(fitness.(population))
     selected = []
     # Select out 50% of the population using roulette wheel selection
@@ -72,31 +73,44 @@ function selection(population, selection_rate=0.5, mutation_rate=0.01)
 end
 
 
-function genetic_algorithm(coordinates, generations, selection_rate=0.5, mutation_rate=0.01)
-    population = [shuffle(coordinates) for _ in 1:length(coordinates)]
+function genetic_algorithm(coordinates, generations, population_size = 1000, selection_rate=0.5, mutation_rate=0.01)
+    population = [shuffle(coordinates) for _ in 1:length(coordinates)] # initialize the population
     fitness_history = []
     for _ in 1:generations
-        population = selection(population, selection_rate, mutation_rate)
+        population = roulette_selection(population, selection_rate, mutation_rate)
         push!(fitness_history, fitness(population[1]))
     end
     return population[1], fitness_history
 end
 
+function random_search(coordinates, generations)
+    route = shuffle(copy(coordinates))
+    best_fitness = fitness(route)
+    best_route = copy(route)
+    fitness_history = []
+    for _ in 1:generations
+        shuffle!(route)
+        if fitness(route) > best_fitness
+            best_fitness = fitness(route)
+            best_route = copy(route)
+        end
+        push!(fitness_history, best_fitness)
+    end
+    return best_route, fitness_history
+end
 
-# Test case with 100 points in a circle
-num_points = 10
-radius = 1.0
-angle_increment = 2π / num_points
-points_on_circle = [(radius * cos(i * angle_increment), radius * sin(i * angle_increment)) for i in 1:num_points]
-
-generations = 1000000
-(best_route, fitness_history) = genetic_algorithm(points_on_circle, generations)
-
-route_x_coords = [coord[1] for coord in best_route]
-route_y_coords = [coord[2] for coord in best_route]
-
-scatter([x for (x, y) in points_on_circle], [y for (x, y) in points_on_circle], seriestype=:scatter, aspect_ratio=:equal, legend=false)
-plot1 = plot(route_x_coords, route_y_coords, linewidth=2, label="Route")
-
-plot2 = plot(1:generations, fitness_history, label="Fitness vs. Generation", xlabel="Generation", ylabel="Fitness", legend=true)
-plot(plot1, plot2, layout=(1, 2))  # 1 row and 2 columns
+function random_mutation_hill_climbing(coordinates, generations, mutation_rate=0.01)
+    route = shuffle(copy(coordinates))
+    best_fitness = fitness(route)
+    best_route = copy(route)
+    fitness_history = []
+    for _ in 1:generations
+        mutated_route = mutate(copy(route), mutation_rate)
+        if fitness(mutated_route) > best_fitness
+            best_fitness = fitness(mutated_route)
+            best_route = copy(mutated_route)
+        end
+        push!(fitness_history, best_fitness)
+    end
+    return best_route, fitness_history
+end
