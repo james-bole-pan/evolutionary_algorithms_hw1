@@ -7,7 +7,7 @@ angle_increment = 2π / num_points
 points_on_circle = [(radius * cos(i * angle_increment), radius * sin(i * angle_increment)) for i in 1:num_points]
 
 generations = 100
-(best_route, fitness_history) = genetic_algorithm(points_on_circle, generations)
+(best_route, fitness_history) = random_search(points_on_circle, generations)
 
 route_x_coords = [coord[1] for coord in best_route]
 route_y_coords = [coord[2] for coord in best_route]

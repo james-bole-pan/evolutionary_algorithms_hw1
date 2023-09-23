@@ -1,5 +1,4 @@
 using Random
-using Plots
 
 function distance(city1, city2)
     return sqrt((city1[1] - city2[1])^2 + (city1[2] - city2[2])^2)
@@ -92,7 +91,7 @@ function random_search(coordinates, generations)
     route = shuffle(copy(coordinates))
     best_fitness = fitness(route)
     best_route = copy(route)
-    fitness_history = []
+    fitness_history = Float64[]
     for _ in 1:generations
         shuffle!(route)
         if fitness(route) > best_fitness
