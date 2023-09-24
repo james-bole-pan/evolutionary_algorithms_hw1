@@ -1,4 +1,3 @@
-
 using Plots
 using Statistics
 using Distributed
@@ -18,27 +17,39 @@ addprocs(number_of_workers)
     end
 end
 
-generation = 100
-random_search_best_fitness_history_four_workers = []
+generation = 1000
+rs_best_fitness_history_four_workers = []
+rmch_best_fitness_history_four_workers = []
+ga_best_fitness_history_four_workers = []
 
 for p in workers()
     print("p: ", p, "\n")
     rs_best_route, rs_fitness_history = fetch(@spawnat p random_search(coordinates, generation))
-    println("typeof", typeof(rs_fitness_history))
-    push!(random_search_best_fitness_history_four_workers, rs_fitness_history)
+    rmch_best_route, rmch_fitness_history = fetch(@spawnat p random_mutation_hill_climbing(coordinates, generation))
+    ga_best_route, ga_fitness_history = fetch(@spawnat p genetic_algorithm(coordinates, generation))
+    push!(rs_best_fitness_history_four_workers, rs_fitness_history)
+    push!(rmch_best_fitness_history_four_workers, rmch_fitness_history)
+    push!(ga_best_fitness_history_four_workers, ga_fitness_history)
 end
 rmprocs(workers())
 
-#convert the array of arrays to print
-println("random_search_best_fitness_history_four_workers: ", random_search_best_fitness_history_four_workers)
-println("Type of random_search_best_fitness_history_four_workers: ", typeof(random_search_best_fitness_history_four_workers))
-# average_rs_fitness_history = mean(random_search_best_fitness_history_four_workers, dims=1)
-# println("average_rs_fitness_history: ", average_rs_fitness_history)
-# error_rs_fitness_history = std(random_search_best_fitness_history_four_workers, dims=1)
-# println("error_rs_fitness_history: ", error_rs_fitness_history)
-# error_indices = 1:10:generation
-# x_values = 1:generations
-# error_bar_positions = generations[error_indices]
-# x_offsets = 0.1
-# plot(x_values, average_rs_fitness_history, ribbon=error_rs_fitness_history, legend=false, xlabel="Generation", ylabel="Fitness")
-# scatter!(error_bar_positions .+ x_offsets, average_rs_fitness_history[error_indices], label="Mean", legend=true)
+rs_best_fitness_history_four_workers = (hcat(rs_best_fitness_history_four_workers...))'
+average_rs_fitness_history = reshape(mean(rs_best_fitness_history_four_workers, dims=1),(generation,))
+error_rs_fitness_history = reshape(std(rs_best_fitness_history_four_workers, dims=1)/sqrt(number_of_workers),(generation,))
+
+rmch_best_fitness_history_four_workers = (hcat(rmch_best_fitness_history_four_workers...))'
+average_rmch_fitness_history = reshape(mean(rmch_best_fitness_history_four_workers, dims=1),(generation,))
+error_rmch_fitness_history = reshape(std(rmch_best_fitness_history_four_workers, dims=1)/sqrt(number_of_workers),(generation,))
+
+ga_best_fitness_history_four_workers = (hcat(ga_best_fitness_history_four_workers...))'
+average_ga_fitness_history = reshape(mean(ga_best_fitness_history_four_workers, dims=1),(generation,))
+error_ga_fitness_history = reshape(std(ga_best_fitness_history_four_workers, dims=1)/sqrt(number_of_workers),(generation,))
+
+x_values = collect(1:generation)
+
+# error_indices = collect(1:10000:generation)
+# sampled_error_bars = [i in error_indices ? error_rs_fitness_history[i] : 0 for i in 1:generation]
+
+plot(x_values, average_rs_fitness_history, ribbon=error_rs_fitness_history, legend=true, xlabel="Generation", ylabel="Fitness", label = "Random Search")
+plot!(x_values, average_rmch_fitness_history, ribbon= error_rmch_fitness_history, legend=true, label = "Random Mutation Hill Climbing")
+plot!(x_values, average_ga_fitness_history, ribbon= error_ga_fitness_history, legend=true, label = "Genetic Algorithm")

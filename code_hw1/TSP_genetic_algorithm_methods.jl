@@ -103,7 +103,7 @@ function random_search(coordinates, generations)
     return best_route, fitness_history
 end
 
-function random_mutation_hill_climbing(coordinates, generations, mutation_rate=0.01)
+function random_mutation_hill_climbing(coordinates, generations, mutation_rate=0.1)
     route = shuffle(copy(coordinates))
     best_fitness = fitness(route)
     best_route = copy(route)
