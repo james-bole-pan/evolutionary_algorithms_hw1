@@ -92,8 +92,8 @@ function determine_maximum_fitness(population)
     return best_individual_index, best_route, maximum_fitness
 end
 
-function genetic_algorithm(coordinates, generations, population_size = 10, selection_rate=0.5, mutation_rate=0.01)
-    population = [shuffle(coordinates) for _ in 1:population_size] # initialize the population
+function genetic_algorithm(coordinates, generations, population_size = 1000, selection_rate=0.5, mutation_rate=0.01)
+    population = [shuffle(coordinates) for _ in 1:population_size] 
     best_route = population[1]
     best_fitness = fitness(best_route)
     best_index = 1
@@ -128,7 +128,7 @@ function random_search(coordinates, generations)
     return best_route, fitness_history
 end
 
-function random_mutation_hill_climbing(coordinates, generations, mutation_rate=0.01)
+function random_mutation_hill_climbing(coordinates, generations, mutation_rate=0.1)
     route = shuffle(copy(coordinates))
     best_fitness = fitness(route)
     best_route = copy(route)

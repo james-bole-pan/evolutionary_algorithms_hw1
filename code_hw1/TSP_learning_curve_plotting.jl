@@ -1,6 +1,8 @@
 using Plots
 using Statistics
 using Distributed
+using JLD2
+
 number_of_workers = 4
 addprocs(number_of_workers)
 
@@ -9,7 +11,7 @@ addprocs(number_of_workers)
 # import the data from tsp_10.txt
 @everywhere begin
     coordinates = []
-    open("code_hw1/tsp_10.txt") do file
+    open("circle_100.txt") do file
         for line in eachline(file)
             x, y = split(line, ',')
             push!(coordinates, (parse(Float64, x), parse(Float64, y)))
@@ -17,7 +19,7 @@ addprocs(number_of_workers)
     end
 end
 
-generation = 100
+generation = 100000
 rs_best_fitness_history_four_workers = []
 rmch_best_fitness_history_four_workers = []
 ga_best_fitness_history_four_workers = []
@@ -53,6 +55,9 @@ error_rmch_fitness_history = reshape(std(rmch_best_fitness_history_four_workers,
 ga_best_fitness_history_four_workers = (hcat(ga_best_fitness_history_four_workers...))'
 average_ga_fitness_history = reshape(mean(ga_best_fitness_history_four_workers, dims=1),(generation,))
 error_ga_fitness_history = reshape(std(ga_best_fitness_history_four_workers, dims=1)/sqrt(number_of_workers),(generation,))
+
+# save the arrays to a file
+@save "result_data.jld2" average_rs_fitness_history error_rs_fitness_history average_rmch_fitness_history error_rmch_fitness_history average_ga_fitness_history error_ga_fitness_history overall_best_route
 
 x_values = collect(1:generation)
 
