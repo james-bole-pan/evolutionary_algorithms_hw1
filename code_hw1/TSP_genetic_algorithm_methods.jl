@@ -71,20 +71,45 @@ function breed(selected, population_size, mutation_rate = 0.01)
         child = crossover(parent1, parent2)
         push!(new_population, mutate(child, mutation_rate))
     end
-    sort!(new_population, by=fitness, rev=true) # rev=true means descending order
     return new_population
 end
 
+# a helper method for the genetic algorithm
+function determine_maximum_fitness(population)
+    maximum_fitness = 0.0
+    best_route = population[1]
+    best_individual_index = 1
+    i=1
+    for individual in population
+        fitness_value = fitness(individual)
+        if fitness_value > maximum_fitness
+            maximum_fitness = fitness_value
+            best_route = individual
+            best_individual_index = i
+        end
+        i += 1
+    end
+    return best_individual_index, best_route, maximum_fitness
+end
 
-function genetic_algorithm(coordinates, generations, population_size = 100, selection_rate=0.5, mutation_rate=0.01)
-    population = [shuffle(coordinates) for _ in 1:length(coordinates)] # initialize the population
+function genetic_algorithm(coordinates, generations, population_size = 10, selection_rate=0.5, mutation_rate=0.01)
+    population = [shuffle(coordinates) for _ in 1:population_size] # initialize the population
+    best_route = population[1]
+    best_fitness = fitness(best_route)
+    best_index = 1
     fitness_history = []
-    for _ in 1:generations
+    for index in 1:generations
         selected = roulette_selection(population, selection_rate)
         population = breed(selected, population_size, mutation_rate)
-        push!(fitness_history, fitness(population[1]))
+        _, population_best_route, population_best_fitness = determine_maximum_fitness(population)
+        if population_best_fitness > best_fitness
+            best_route = population_best_route
+            best_fitness = population_best_fitness
+            best_index = index
+        end
+        push!(fitness_history, best_fitness)
     end
-    return population[1], fitness_history
+    return best_index, best_route, fitness_history
 end
 
 function random_search(coordinates, generations)
@@ -103,7 +128,7 @@ function random_search(coordinates, generations)
     return best_route, fitness_history
 end
 
-function random_mutation_hill_climbing(coordinates, generations, mutation_rate=0.1)
+function random_mutation_hill_climbing(coordinates, generations, mutation_rate=0.01)
     route = shuffle(copy(coordinates))
     best_fitness = fitness(route)
     best_route = copy(route)
