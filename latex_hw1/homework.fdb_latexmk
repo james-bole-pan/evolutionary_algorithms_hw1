@@ -1,6 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1694985137 "/Users/jamespan/OneDrive - Columbia University/Columbia/2023 Fall/MECS4510/HW1/latex_hw1/homework.tex" "homework.pdf" "homework" 1694985138
-  "../code_hw1/TSP_random_search.png" 1694985076 18515 245023a94d6ad34d4a762a7e6bef8128 ""
+["pdflatex"] 1695672520 "/Users/jamespan/OneDrive - Columbia University/Columbia/2023 Fall/MECS4510/HW1/latex_hw1/homework.tex" "homework.pdf" "homework" 1695672521
   "/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1663357230 1444 95ffe0f19b974d50849790c8225c7ef7 ""
   "/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1663357197 1004 54797486969f23fa377b128694d548df ""
   "/Library/Application Support/MiKTeX/texmfs/install/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1663357197 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -50,10 +49,11 @@
   "/Users/jamespan/Library/Application Support/MiKTeX/texmfs/install/tex/latex/fancyhdr/fancyhdr.sty" 1663357366 17280 7856508378dfe40ed74280f5b81e31b6 ""
   "/Users/jamespan/Library/Application Support/MiKTeX/texmfs/install/tex/latex/geometry/geometry.cfg" 1663357386 1104 d237cad3f14be9fd91fe1f904d051a01 ""
   "/Users/jamespan/Library/Application Support/MiKTeX/texmfs/install/tex/latex/geometry/geometry.sty" 1663357386 42759 e63af52ccddba7489ac0e17d6a3344bd ""
-  "/Users/jamespan/OneDrive - Columbia University/Columbia/2023 Fall/MECS4510/HW1/latex_hw1/homework.tex" 1694985137 749 3a419c0f43bc31c7d809a2c95d5cdb6a ""
-  "homework.aux" 1694985138 32 044b7f8fc9779af7531264e0c5c84b6d "pdflatex"
+  "/Users/jamespan/OneDrive - Columbia University/Columbia/2023 Fall/MECS4510/HW1/latex_hw1/homework.tex" 1695672520 2998 7473c28244d93ac72118d6e010ef5dc8 ""
+  "homework.aux" 1695672521 32 ab05033ccbb38b00a31b200ccedf8001 "pdflatex"
   "homework.cls" 1694967844 3153 1510451dc0a4ab6d86f0813f941ec01c ""
-  "homework.tex" 1694985137 749 3a419c0f43bc31c7d809a2c95d5cdb6a ""
+  "homework.tex" 1695672520 2998 7473c28244d93ac72118d6e010ef5dc8 ""
+  "output.png" 1676511374 9029 997a5e521d7b54f0d9197a3093a9546a ""
   (generated)
   "homework.aux"
   "homework.log"

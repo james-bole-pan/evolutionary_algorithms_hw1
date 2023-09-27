@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.9.16)  17 SEP 2023 17:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.9.16)  25 SEP 2023 16:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -263,11 +263,11 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/Users/jamespan/Library/Application Support/MiKTeX/texmfs/data/fonts/map/pdftex/pdftex.map}]
-<../code_hw1/TSP_random_search.png, id=9, 602.25pt x 401.5pt>
-File: ../code_hw1/TSP_random_search.png Graphic file (type png)
-<use ../code_hw1/TSP_random_search.png>
-Package pdftex.def Info: ../code_hw1/TSP_random_search.png  used on input line 28.
-(pdftex.def)             Requested size: 422.77664pt x 281.86288pt.
+<output.png, id=9, 384.43625pt x 248.93pt>
+File: output.png Graphic file (type png)
+<use output.png>
+Package pdftex.def Info: output.png  used on input line 28.
+(pdftex.def)             Requested size: 422.77664pt x 273.77446pt.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -276,19 +276,36 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[2 <../code_hw1/TSP_random_search.png>] (homework.aux) ) 
+[2 <./output.png>]
+Overfull \hbox (13.68713pt too wide) in paragraph at lines 38--40
+\OT1/cmr/m/n/12 randomly select a subset of cities from one parent, and make the child's corresponding
+ []
+
+
+Overfull \hbox (6.06622pt too wide) in paragraph at lines 48--49
+[]\OT1/cmr/bx/n/12 Methods compared\OT1/cmr/m/n/12 : we compare the performance of random search, random mutation
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[3] (homework.aux) ) 
 Here is how much of TeX's memory you used:
- 3732 strings out of 477324
- 55910 string characters out of 2827471
- 392146 words of memory out of 3000000
- 24842 multiletter control sequences out of 15000+600000
- 473736 words of font info for 46 fonts, out of 8000000 for 9000
+ 3731 strings out of 477324
+ 55758 string characters out of 2827471
+ 397146 words of memory out of 3000000
+ 24843 multiletter control sequences out of 15000+600000
+ 474043 words of font info for 47 fonts, out of 8000000 for 9000
  0 hyphenation exceptions out of 8191
  70i,11n,76p,433b,343s stack positions out of 5000i,500n,10000p,200000b,80000s
  </Users/jamespan/Library/Application Support/MiKTeX/texmfs/data/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1200.pk></Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr12.pfb></Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmr17.pfb></Library/Application Support/MiKTeX/texmfs/install/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on homework.pdf (2 pages, 67066 bytes).
+Output written on homework.pdf (3 pages, 67181 bytes).
 PDF statistics:
- 35 PDF objects out of 1000 (max. 8388607)
+ 40 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
