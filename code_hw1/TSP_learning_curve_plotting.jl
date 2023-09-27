@@ -12,7 +12,7 @@ addprocs(number_of_workers)
 # import the data from text document
 @everywhere begin
     coordinates = []
-    open("cities.txt") do file
+    open("code_hw1/cities.txt") do file
         for line in eachline(file)
             x, y = split(line, ',')
             push!(coordinates, (parse(Float64, x), parse(Float64, y)))
@@ -20,7 +20,7 @@ addprocs(number_of_workers)
     end
 end
 
-generation = 10
+generation = 100000
 rs_best_fitness_history_four_workers = []
 rmch_best_fitness_history_four_workers = []
 ga_best_fitness_history_four_workers = []

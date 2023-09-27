@@ -92,7 +92,7 @@ function determine_maximum_fitness(population)
     return best_individual_index, best_route, maximum_fitness
 end
 
-function genetic_algorithm(coordinates, generations, population_size = 50, selection_rate=0.3, mutation_rate=0.05)
+function genetic_algorithm(coordinates, generations, population_size = 100, selection_rate=0.3, mutation_rate=0.05)
     population = [shuffle(coordinates) for _ in 1:population_size] 
     best_route = population[1]
     best_fitness = fitness(best_route)
