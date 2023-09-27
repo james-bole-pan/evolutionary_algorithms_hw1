@@ -58,3 +58,11 @@ end
     @test length(new_population) == length(population)
 
 end
+
+@testset "Test determine maximum_fitness" begin
+    population = [[(0,1),(0,-1),(1,0),(-1,0)],[(0,1),(0,-1),(1,0),(-1,0)]]
+    best_worker, overall_best_route, maximum_fitness = determine_maximum_fitness(population)
+    @test best_worker == 1
+    @test overall_best_route == [(0,1),(0,-1),(1,0),(-1,0)]
+    @test maximum_fitness == 1/4
+end
